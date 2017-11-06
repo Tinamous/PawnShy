@@ -13,7 +13,8 @@ difference() {
         
         // Add a support for a phone.
         
-        translate([(199-80)/2,-10,24]) {
+        //translate([(199-80)/2,-10,24]) { - center - NFC reader issues.
+        translate([10,-10,24]) {
             rotate([-55, 0, 0]) {
                 cube([80, 20, 2]);
             }
