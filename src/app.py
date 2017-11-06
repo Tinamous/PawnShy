@@ -40,7 +40,7 @@ class App():
 					self.do_card_id_lookup(uid)
 
 			# Sleep for a bit to show the result then return to not busy led animation
-			time.sleep(20)
+			time.sleep(10)
 			self.led_driver.animate_whilst_not_busy()
 
 	# Expect ndef to be MIMERecord
@@ -73,6 +73,10 @@ class App():
 		print("Extract domain")
 		parsed_uri = urlparse(uri)
 		domain = '{uri.netloc}'.format(uri=parsed_uri)
+		# Bit of a hack to try and remove www and m. from domain names
+		# as they cause HIBP to
+		domain = domain.replace('www.', '')
+		domain = domain.replace('m.', '')
 		print ("'" + domain + "'")
 
 		# Bodge warning!
@@ -107,6 +111,12 @@ class App():
 		elif card_id == "62EB23EE":
 			print("Tesco.com blank rfid card")
 			self.do_web_lookup("Tesco.com")
+		elif card_id == "22D3530D":
+			print("Badoo.com blank rfid card")
+			self.do_web_lookup("Badoo.com")
+		elif card_id == "74B44677":
+			print("Biohack.me blank rfid card")
+			self.do_web_lookup("Biohack.me")
 		else:
 			print("Unknown card")
 
