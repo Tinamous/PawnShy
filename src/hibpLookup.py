@@ -26,7 +26,7 @@ class HibpLookup():
 			print("email comprised")
 			results = response.json()
 			count = len(results)
-			print("Count: " + count)
+			print("Count: " + str(count))
 			print(results)
 			return count, results
 
@@ -53,7 +53,7 @@ class HibpLookup():
 		if str(response.status_code) == "200":
 			results = response.json()
 			count = len(results)
-			print("Count: " + count)
+			print("Count: " + str(count))
 			print(results)
 			return count, results
 
