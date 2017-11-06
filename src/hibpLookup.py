@@ -70,8 +70,8 @@ class HibpLookup():
 			pwnCount = 0
 			if count > 0:
 				for result in results:
-					print("PwnCount: " + str(result.PwnCount))
-					pwnCount = pwnCount + result.PwnCount
+					print("PwnCount: " + str(result["PwnCount"]))
+					pwnCount = pwnCount + result["PwnCount"]
 
 			return pwnCount, results
 
