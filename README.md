@@ -1,6 +1,6 @@
 # Pawn Shy
 
-![Pawn Sy](/pictures/PawnShy1.png)
+![Pawn Sy](/pictures/PawnShy1.jpg)
 
 This is my entry to the Have I Been Pwned API competition.
 
@@ -10,7 +10,7 @@ Based on the fair ground game Coconut shy. The aim is to known out as many pawns
 
 [Part 1](https://youtu.be/ber4mi4SVx4)
 
-[Part 2] (https://youtu.be/kG7oJAG3vGs)
+[Part 2](https://youtu.be/kG7oJAG3vGs)
 
 
 The game is intended to be easy to play, for example, at a conference, and to give the player a fun visual indication, and to drive thieir interest in Have I Been Pwned.
@@ -45,7 +45,7 @@ Once the Pi picks up an email or website the Have I Been Pwned API is queried to
 This is then displayed through the 5 pixel NeoPixel LEDs.
 
 * As 0-5 Red/Purple vs Green/Yellow colouring for the count
-* A sliding scale (1-1000, <10k, <100k, <1M, Wooo) of red/purple pwns indicting the number of accounts compromised.
+* A sliding scale (1-100k, <1M, <10M, <100M, Wooo) of red/purple pwns indicting the number of accounts compromised.
 
 Colours: typically Red for a compromise or Green when not used. However if using Minion pawns then Purple (bad minion) or Yellow (good minion/banana).
 
@@ -72,10 +72,10 @@ Using pre-programmed NFC cards, select a card for the website you trust the most
 
 Each red/purple pwnd indicates a pwnage.
 0: Yay, not pwned!
-1: 1-1000 accounts compromised.
-2: <10k
-3: <100k
-4: <1M
+1: 1-100k accounts compromised.
+2: <1M
+3: <10M
+4: <100M
 5: OUCH!
 
 For multi-player you each select a card and the winner is the person with the lowest pwnage.
@@ -96,7 +96,6 @@ When promoted by your phone click to send the website.
 As with game 2. The pwnd accounts are displaed.
 
 
-
 ## Construction
 
 ### NeoPixels
@@ -114,6 +113,10 @@ Note that Neopixels are not really a good choise for use on the Raspberry Pi.
 Install the raspberry Pi Neopixel software following the instructions here:
 
 https://learn.adafruit.com/neopixels-on-raspberry-pi/software
+
+![Neopixel Wiring](/pictures/Wiring.jpg)
+
+![Neopixel To Pi](/pictures/NeopixelToPi.jpg)
 
 ## Pi
 
@@ -141,6 +144,12 @@ Screw the holder to the inside of the case. It doesn't quite fit in the center d
 
 Plug the USB lead into the Raspberry Pi.
 
+![NFC Holder](/pictures/NfcHolder.jpg)
+
+![Mounting the NFC Holder](/pictures/MountingNfcHolder.jpg)
+
+![Inside Pawn Shy](/pictures/InsidePawnShy.jpg)
+
 
 ## Pawns:
 
@@ -157,6 +166,8 @@ The models should be resized to about 26mm on the x/y axis to fit the stand.
 
 Eureka Pawn and Bender are also available in the Pawns folder as hollowed out versions which might work better for FDM printers with clear filament.
 
+![Alternative Pawns](/pictures/AlternativePawns.jpg)
+
 ### Printer Settings:
 
 * Printer: Form2
@@ -165,11 +176,9 @@ Eureka Pawn and Bender are also available in the Pawns folder as hollowed out ve
 * Placement: Manually placed to ensure supports are on the back/bottom.
 * Supports: auto-generated
 
-
-
-## Raspberry Pi Configuration
-
 ### Bluetooth printer notes:
+
+Not implemented but a Bluetooth printer could be used to print out the pwned details.
 
 https://www.cnet.com/uk/how-to/how-to-setup-bluetooth-on-a-raspberry-pi-3/
 
