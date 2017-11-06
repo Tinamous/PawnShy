@@ -4,7 +4,7 @@
 
 This is my entry to the Have I Been Pwned API competition.
 
-Based on the fair ground game Coconut shy. The aim is to known out as many pawns as possible using either your email address or website that hasn't been pwned (good luck with that!).
+Based on the fair ground game Coconut shy. The aim is to knock out as many pawns as possible using either your email address or website that hasn't been pwned (good luck with that!).
 
 ## Videos:
 
@@ -25,8 +25,8 @@ Likewise, many door entry systems use NFC or RFID cards. These cards could be li
 
 * Raspberry Pi running Raspbian
 * I actually used the OctoPi 0.14 image for this. (It isn't required, but it makes it easy to start the Pi headless and I had other reasons as well)
-* NFC sensor (Micro NFC Board)
-* 5 LED Neopixel strip
+* NFC sensor (Micro NFC Board - https://www.seeedstudio.com/Micro-NFC-Board-p-2431.html)
+* 5 LED Neopixel strip (https://www.adafruit.com/product/1376)
 * 3D Printed case
 * 3D (SLA) printed pawns
 
