@@ -1,6 +1,6 @@
 # Pawn Shy
 
-![Pawn Sy](/pictures/PawnShy1.jpg)
+![Pawn Shy](/Pictures/PawnShy1.jpg)
 
 This is my entry to the Have I Been Pwned API competition.
 
@@ -114,9 +114,9 @@ Install the raspberry Pi Neopixel software following the instructions here:
 
 https://learn.adafruit.com/neopixels-on-raspberry-pi/software
 
-![Neopixel Wiring](/pictures/Wiring.jpg)
+![Neopixel Wiring](/Pictures/Wiring.jpg)
 
-![Neopixel To Pi](/pictures/NeopixelToPi.jpg)
+![Neopixel To Pi](/Pictures/NeopixelToPi.jpg)
 
 ## Pi
 
@@ -144,11 +144,11 @@ Screw the holder to the inside of the case. It doesn't quite fit in the center d
 
 Plug the USB lead into the Raspberry Pi.
 
-![NFC Holder](/pictures/NfcHolder.jpg)
+![NFC Holder](/Pictures/NfcHolder.jpg)
 
-![Mounting the NFC Holder](/pictures/MountingNfcHolder.jpg)
+![Mounting the NFC Holder](/Pictures/MountingNfcHolder.jpg)
 
-![Inside Pawn Shy](/pictures/InsidePawnShy.jpg)
+![Inside Pawn Shy](/Pictures/InsidePawnShy.jpg)
 
 
 ## Pawns:
@@ -166,7 +166,7 @@ The models should be resized to about 26mm on the x/y axis to fit the stand.
 
 Eureka Pawn and Bender are also available in the Pawns folder as hollowed out versions which might work better for FDM printers with clear filament.
 
-![Alternative Pawns](/pictures/AlternativePawns.jpg)
+![Alternative Pawns](/Pictures/AlternativePawns.jpg)
 
 ### Printer Settings:
 
