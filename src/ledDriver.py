@@ -34,6 +34,7 @@ class LedDriver():
 		self.pwn_count = 0
 		self.running = False
 		self.counter = 0
+		self.result_shown = False
 
 	# Animate the LEDs whilst we wait for a user input
 	def animate_whilst_not_busy(self):
@@ -49,11 +50,13 @@ class LedDriver():
 		self.counter = 0
 		self.display_mode = 2
 		self.pwn_count = count
+		self.result_shown = False
 
 	def show_result_web_count(self, count):
 		self.counter = 0
 		self.display_mode = 3
 		self.pwn_count = count
+		self.result_shown = False
 
 	def start(self):
 		self.display_mode = 0
@@ -103,7 +106,9 @@ class LedDriver():
 
 
 	def _show_email_result(self):
-		# TODO: Animate a little as we go.
+		if self.result_shown:
+			return;
+
 		# Count 5+ all leds.
 		# Count 4, LED1 Off
 		# Count 3, LED1,2 Off
@@ -132,8 +137,15 @@ class LedDriver():
 		self.strip.setPixelColor(4, self.bad_color if self.pwn_count>=1 else self.good_color)
 
 		self.strip.show()
+		self.result_shown = True
 
 	def _show_web_result(self):
+
+		if self.result_shown:
+			return;
+
+		for i in range(self.strip.numPixels()):
+			self.strip.setPixelColor(i, self.good_color)
 
 		# TODO: Animate a little as we go along.
 		self.strip.setPixelColor(0, self.good_color if self.pwn_count < 1000000 else self.bad_color)
@@ -143,6 +155,7 @@ class LedDriver():
 		self.strip.setPixelColor(4, self.good_color if self.pwn_count < 1 else self.bad_color)
 
 		self.strip.show()
+		self.result_shown = True
 
 	def animate_results(self, strip, start, wait_ms=50, iterations=10):
 		"""Movie theater light style chaser animation."""
@@ -167,7 +180,7 @@ class LedDriver():
 
 			# Off
 			for i in range(0, strip.numPixels()):
-				strip.setPixelColor(i + q, 0)
+				strip.setPixelColor(i, 0)
 
 			strip.show()
 
