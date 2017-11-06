@@ -1,6 +1,7 @@
 # Mainly copied from NeoPixel strandtest example. Author: Tony DiCola (tony@tonydicola.com)
 # See: https://github.com/jgarff/rpi_ws281x
 
+import threading
 import time
 
 from neopixel import *
@@ -58,7 +59,10 @@ class LedDriver():
 		self.display_mode = 0
 		self.running = True
 		# TODO: start a thread to run the LED animations in the background.
-		self.run_animations()
+		#self.run_animations()
+		thread = threading.Thread(target=self.run_animations, args=())
+		thread.daemon = True  # Daemonize thread
+		thread.start()
 
 	def stop(self):
 		self.running = False
@@ -76,8 +80,6 @@ class LedDriver():
 				self._show_email_result()
 			elif self.display_mode == 3:
 				self._show_web_result()
-
-			time.sleep(1.0)
 
 	def _show_idle(self):
 		if self.counter == 1:
@@ -231,6 +233,8 @@ if __name__ == '__main__':
 	driver = LedDriver()
 	driver.animate_whilst_not_busy()
 	driver.start()
+	time.sleep(20.0)
+	driver.stop()
 
 
 
