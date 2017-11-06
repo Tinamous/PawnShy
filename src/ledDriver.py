@@ -157,21 +157,21 @@ class LedDriver():
 			self.strip.setPixelColor(i, self.good_color)
 
 		self.animate_results(self.strip, 0)
-		self.strip.setPixelColor(0, self.good_color if self.pwn_count < 1000000 else self.bad_color)
+		self.strip.setPixelColor(0, self.good_color if self.pwn_count < 100000000 else self.bad_color)
+
+		if self.pwn_count < 100000000:
+			self.animate_results(self.strip, 1)
+		self.strip.setPixelColor(1, self.good_color if self.pwn_count < 10000000 else self.bad_color)
+
+		if self.pwn_count < 10000000:
+			self.animate_results(self.strip, 2)
+		self.strip.setPixelColor(2, self.good_color if self.pwn_count < 1000000 else self.bad_color)
 
 		if self.pwn_count < 1000000:
-			self.animate_results(self.strip, 1)
-		self.strip.setPixelColor(1, self.good_color if self.pwn_count < 100000 else self.bad_color)
+			self.animate_results(self.strip, 3)
+		self.strip.setPixelColor(3, self.good_color if self.pwn_count < 100000 else self.bad_color)
 
 		if self.pwn_count < 100000:
-			self.animate_results(self.strip, 2)
-		self.strip.setPixelColor(2, self.good_color if self.pwn_count < 10000 else self.bad_color)
-
-		if self.pwn_count < 10000:
-			self.animate_results(self.strip, 3)
-		self.strip.setPixelColor(3, self.good_color if self.pwn_count < 1000 else self.bad_color)
-
-		if self.pwn_count < 1000:
 			self.animate_results(self.strip, 4)
 		self.strip.setPixelColor(4, self.good_color if self.pwn_count < 1 else self.bad_color)
 
