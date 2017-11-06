@@ -23,8 +23,10 @@ class LedDriver():
 		# Create NeoPixel object with appropriate configuration.
 		self.strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
 
-		self.bad_color = Color(128, 0, 0)
-		self.good_color = Color(0, 0, 0)
+		#self.bad_color = Color(255, 0, 0)
+		self.bad_color = Color(128, 0, 128) # Purple
+		#self.good_color = Color(0, 0, 0) # Off
+		self.good_color = Color(255, 255, 0) # Minion Yellow
 
 		# Intialize the library (must be called once before other functions).
 		self.strip.begin()
@@ -154,30 +156,36 @@ class LedDriver():
 		for i in range(self.strip.numPixels()):
 			self.strip.setPixelColor(i, self.good_color)
 
-		# TODO: Animate a little as we go along.
+		self.animate_results(self.strip, 0)
 		self.strip.setPixelColor(0, self.good_color if self.pwn_count < 1000000 else self.bad_color)
+
+		if self.pwn_count < 1000000:
+			self.animate_results(self.strip, 1)
 		self.strip.setPixelColor(1, self.good_color if self.pwn_count < 100000 else self.bad_color)
+
+		if self.pwn_count < 100000:
+			self.animate_results(self.strip, 2)
 		self.strip.setPixelColor(2, self.good_color if self.pwn_count < 10000 else self.bad_color)
+
+		if self.pwn_count < 10000:
+			self.animate_results(self.strip, 3)
 		self.strip.setPixelColor(3, self.good_color if self.pwn_count < 1000 else self.bad_color)
+
+		if self.pwn_count < 1000:
+			self.animate_results(self.strip, 4)
 		self.strip.setPixelColor(4, self.good_color if self.pwn_count < 1 else self.bad_color)
 
 		self.strip.show()
 		self.result_shown = True
 
 	def animate_results(self, strip, start, wait_ms=1, iterations=10):
-		"""Movie theater light style chaser animation."""
-
-		for j in range(256 * iterations):
+		# Animate pawns starting at start
+		# so giving a count down.
+		for j in range(0, 256 * iterations, 2):
 			for i in range(start, strip.numPixels()):
 				strip.setPixelColor(i, self.wheel((int(i * 256 / strip.numPixels()) + j) & 255))
 			strip.show()
 			time.sleep(wait_ms / 1000.0)
-
-		# Off
-		#for i in range(start, strip.numPixels()):
-			#strip.setPixelColor(i, 0)
-
-		#strip.show()
 
 	# Define functions which animate LEDs in various ways.
 	def colorWipe(self, strip, color, wait_ms=50):
@@ -251,12 +259,12 @@ if __name__ == '__main__':
 	time.sleep(10.0)
 
 	print("Email count result")
-	driver.show_result_email_count(4)
+	driver.show_result_email_count(2)
 	time.sleep(20.0)
 
 	print("Web result")
 	driver.show_result_web_count(23567)
-	time.sleep(10.0)
+	#time.sleep(10.0)
 
 	print("That's it, I'm out of here....")
 	driver.stop()
