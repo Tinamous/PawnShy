@@ -40,7 +40,7 @@ class HibpLookup():
 	def lookup_domain(self, domain):
 		print ("domain lookup: " + domain)
 
-		response = requests.get("https://haveibeenpwned.com/api/v2/breaches?domain=" + domain + "?includeUnverified=true")
+		response = requests.get("https://haveibeenpwned.com/api/v2/breaches?domain=" + domain + "&includeUnverified=true")
 
 		# Insert artificial delay to make it look busy
 		# even if the api returned quickly.
