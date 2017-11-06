@@ -82,10 +82,10 @@ class LedDriver():
 				self._show_web_result()
 
 	def _show_idle(self):
-		self.rainbowCycle(self.strip, 1, 1)
+		self.theaterChaseRainbow(self.strip, 20)
 
 	def _show_hibp_lookup(self):
-		self.theaterChaseRainbow(self.strip, 5)
+		self.rainbowCycle(self.strip, 2, 1)
 
 		#print ('Theater chase animations.')
 		#if self.counter == 1:
@@ -115,20 +115,20 @@ class LedDriver():
 			self.strip.setPixelColor(i, self.good_color)
 
 		# animate_result(start=1)
-		self.animate_results(self.strip, 1)
+		self.animate_results(self.strip, 0)
 		self.strip.setPixelColor(0, self.bad_color if self.pwn_count>=5 else self.good_color)
 
 		# animate_result(start=2)
-		self.animate_results(self.strip, 2)
+		self.animate_results(self.strip, 1)
 		self.strip.setPixelColor(1, self.bad_color if self.pwn_count>=4 else self.good_color)
 		# animate_result(start=3)
-		self.animate_results(self.strip, 3)
+		self.animate_results(self.strip, 2)
 		self.strip.setPixelColor(2, self.bad_color if self.pwn_count>=3 else self.good_color)
 		# animate_result(start=4)
-		self.animate_results(self.strip, 4)
+		self.animate_results(self.strip, 3)
 		self.strip.setPixelColor(3, self.bad_color if self.pwn_count>=2 else self.good_color)
 		# animate_result(start=5)
-		self.animate_results(self.strip, 5)
+		self.animate_results(self.strip, 4)
 		self.strip.setPixelColor(4, self.bad_color if self.pwn_count>=1 else self.good_color)
 
 		self.strip.show()
@@ -147,13 +147,29 @@ class LedDriver():
 	def animate_results(self, strip, start, wait_ms=50, iterations=10):
 		"""Movie theater light style chaser animation."""
 		for j in range(iterations):
-			for q in range(3):
-				for i in range(start, strip.numPixels(), 3):
-					strip.setPixelColor(i + q, Color(0, 255, 0))
-				strip.show()
-				time.sleep(wait_ms / 1000.0)
-				for i in range(0, strip.numPixels(), 3):
-					strip.setPixelColor(i + q, 0)
+			# Green
+			for i in range(start, strip.numPixels()):
+				strip.setPixelColor(i, Color(0, 255, 0))
+			strip.show()
+			time.sleep(wait_ms / 1000.0)
+
+			# Purple
+			for i in range(start, strip.numPixels()):
+				strip.setPixelColor(i, Color(127, 0, 127))
+			strip.show()
+			time.sleep(wait_ms / 1000.0)
+
+			# Yellow
+			for i in range(start, strip.numPixels()):
+				strip.setPixelColor(i, Color(255, 255, 0))
+			strip.show()
+			time.sleep(wait_ms / 1000.0)
+
+			# Off
+			for i in range(0, strip.numPixels()):
+				strip.setPixelColor(i + q, 0)
+
+			strip.show()
 
 	# Define functions which animate LEDs in various ways.
 	def colorWipe(self, strip, color, wait_ms=50):
