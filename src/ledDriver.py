@@ -87,33 +87,26 @@ class LedDriver():
 	def _show_idle(self):
 		#self.theaterChaseRainbow(self.strip, 20, 1)
 
-		#self.rainbowCycle(self.strip, 20, 1)
 		for i in range(self.strip.numPixels()):
 			self.strip.setPixelColor(i, self.wheel((int(i * 256 / self.strip.numPixels()) + self.counter) & 255))
 
 		self.strip.show()
-		time.sleep(10 / 1000.0)
+		time.sleep(20 / 1000.0)
 
 		if self.counter > 255:
 			self.counter = 0
 
 	def _show_hibp_lookup(self):
-		self.rainbowCycle(self.strip, 2, 1)
+		#self.rainbowCycle(self.strip, 2, 1)
 
-		#print ('Theater chase animations.')
-		#if self.counter == 1:
-	    #		self.theaterChase(self.strip, Color(127, 127, 127))  # White theater chase
-		#elif self.counter == 2:
-		#	self.theaterChase(self.strip, Color(127, 0, 0))  # Red theater chase
-		#else:
-		#	self.theaterChase(self.strip, Color(0, 0, 127))  # Blue theater chase
-		#	self.counter = 0
+		"""Draw rainbow that uniformly distributes itself across all pixels."""
+		for i in range(self.strip.numPixels()):
+			self.strip.setPixelColor(i, self.wheel((int(i * 256 / self.strip.numPixels()) +  self.counter) & 255))
+		self.strip.show()
+		time.sleep(2 / 1000.0)
 
-		#print ('Rainbow animations.')
-		#rainbow(strip)
-		#rainbowCycle(strip)
-		#theaterChaseRainbow(strip)
-
+		if self.counter > 255:
+			self.counter = 0
 
 	def _show_email_result(self):
 		if self.result_shown:
@@ -132,16 +125,20 @@ class LedDriver():
 		self.animate_results(self.strip, 0)
 		self.strip.setPixelColor(0, self.bad_color if self.pwn_count>=5 else self.good_color)
 
-		self.animate_results(self.strip, 1)
+		if self.pwn_count < 5:
+			self.animate_results(self.strip, 1)
 		self.strip.setPixelColor(1, self.bad_color if self.pwn_count>=4 else self.good_color)
 
-		self.animate_results(self.strip, 2)
+		if self.pwn_count < 4:
+			self.animate_results(self.strip, 2)
 		self.strip.setPixelColor(2, self.bad_color if self.pwn_count>=3 else self.good_color)
 
-		self.animate_results(self.strip, 3)
+		if self.pwn_count < 3:
+			self.animate_results(self.strip, 3)
 		self.strip.setPixelColor(3, self.bad_color if self.pwn_count>=2 else self.good_color)
 
-		self.animate_results(self.strip, 4)
+		if self.pwn_count < 2:
+			self.animate_results(self.strip, 4)
 		self.strip.setPixelColor(4, self.bad_color if self.pwn_count>=1 else self.good_color)
 
 		self.strip.show()
@@ -168,29 +165,11 @@ class LedDriver():
 	def animate_results(self, strip, start, wait_ms=100, iterations=10):
 		"""Movie theater light style chaser animation."""
 		for j in range(iterations):
-			# Green
-			for i in range(start, strip.numPixels()):
-				strip.setPixelColor(i, Color(0, 255, 0))
-			strip.show()
-			time.sleep(wait_ms / 1000.0)
-
-			# Purple
-			for i in range(start, strip.numPixels()):
-				strip.setPixelColor(i, Color(127, 0, 127))
-			strip.show()
-			time.sleep(wait_ms / 1000.0)
-
-			# Yellow
-			for i in range(start, strip.numPixels()):
-				strip.setPixelColor(i, Color(255, 255, 0))
-			strip.show()
-			time.sleep(wait_ms / 1000.0)
-
-			# Red
-			for i in range(start, strip.numPixels()):
-				strip.setPixelColor(i, Color(255, 0, 0))
-			strip.show()
-			time.sleep(wait_ms / 1000.0)
+			for j in range(256):
+				for i in range(start, strip.numPixels()):
+					strip.setPixelColor(i, self.wheel((int(i * 256 / strip.numPixels()) + j) & 255))
+				strip.show()
+				time.sleep(wait_ms / 1000.0)
 
 			# Off
 			#for i in range(start, strip.numPixels()):
@@ -270,11 +249,11 @@ if __name__ == '__main__':
 	time.sleep(10.0)
 
 	print("Email count result")
-	driver.show_result_email_count(3)
+	driver.show_result_email_count(4)
 	time.sleep(20.0)
 
 	print("Web result")
-	driver.show_result_web_count(243567)
+	driver.show_result_web_count(23567)
 	time.sleep(10.0)
 
 	print("That's it, I'm out of here....")
