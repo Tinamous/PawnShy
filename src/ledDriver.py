@@ -82,7 +82,7 @@ class LedDriver():
 				self._show_web_result()
 
 	def _show_idle(self):
-		self.rainbowCycle(self.strip)
+		self.rainbowCycle(self.strip, 1, 1)
 
 	def _show_hibp_lookup(self):
 		self.theaterChaseRainbow(self.strip, 5)
@@ -122,13 +122,13 @@ class LedDriver():
 		self.animate_results(self.strip, 2)
 		self.strip.setPixelColor(1, self.bad_color if self.pwn_count>=4 else self.good_color)
 		# animate_result(start=3)
-		#self.animate_results(self.strip, 3)
+		self.animate_results(self.strip, 3)
 		self.strip.setPixelColor(2, self.bad_color if self.pwn_count>=3 else self.good_color)
 		# animate_result(start=4)
-		#self.animate_results(self.strip, 4)
+		self.animate_results(self.strip, 4)
 		self.strip.setPixelColor(3, self.bad_color if self.pwn_count>=2 else self.good_color)
 		# animate_result(start=5)
-		#self.animate_results(self.strip, 5)
+		self.animate_results(self.strip, 5)
 		self.strip.setPixelColor(4, self.bad_color if self.pwn_count>=1 else self.good_color)
 
 		self.strip.show()
@@ -144,7 +144,7 @@ class LedDriver():
 
 		self.strip.show()
 
-	def animate_results(self, strip, start, wait_ms=20, iterations=10):
+	def animate_results(self, strip, start, wait_ms=50, iterations=10):
 		"""Movie theater light style chaser animation."""
 		for j in range(iterations):
 			for q in range(3):
@@ -228,10 +228,10 @@ if __name__ == '__main__':
 
 	print("Email count result")
 	driver.show_result_email_count(3)
-	time.sleep(10.0)
+	time.sleep(20.0)
 
 	print("Web result")
-	driver.show_result_web_count(1243567)
+	driver.show_result_web_count(243567)
 	time.sleep(10.0)
 
 	print("That's it, I'm out of here....")
