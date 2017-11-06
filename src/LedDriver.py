@@ -83,13 +83,13 @@ class LedDriver():
 
 	def _show_idle(self):
 		if self.counter == 1:
-			self.theaterChaseRainbow(self.strip)
+			self.rainbowCycle(self.strip)
 			#self.theaterChase(self.strip, Color(127, 0, 0))  # Red theater chase
 		elif self.counter == 2:
-			self.theaterChaseRainbow(self.strip)
+			self.rainbow(self.strip)
 			#self.theaterChase(self.strip, Color(0, 0, 127))  # Blue theater chase
 		else:
-			self.theaterChaseRainbow(self.strip)
+			#self.theaterChaseRainbow(self.strip)
 			#self.theaterChase(self.strip, Color(0, 127, 0))  # Green theater chase
 			self.counter = 0
 
