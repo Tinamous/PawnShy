@@ -39,7 +39,9 @@ class App():
 					print("Don't know how to handle ndef record. reverting to card id.")
 					self.do_card_id_lookup(uid)
 
-			time.sleep(0.1)
+			# Sleep for a bit to show the result then return to not busy led animation
+			time.sleep(20)
+			self.led_driver.animate_whilst_not_busy()
 
 	# Expect ndef to be MIMERecord
 	# and the MIMERecord to be a vcard
@@ -51,13 +53,12 @@ class App():
 
 		self.led_driver.animate_whilst_hibp_lookup()
 		count = self.hibp_lookup.lookup_email("Test@domain.com")
+
 		# Insert artificial delay to make it look pretty...
 		time.sleep(5)
+
 		# Show the pwn count.
 		self.led_driver.show_result_email_count(count)
-		# Sleep for 5 seconds.
-		time.sleep(20)
-		self.led_driver.animate_whilst_not_busy()
 
 	# Expect URIRecord
 	def do_web_lookup(self, uid, ndef_record):
@@ -65,20 +66,43 @@ class App():
 		uri = ndef_record.uri
 		print(uri)
 
+		print("Extract domain")
 		parsed_uri = urlparse(uri)
 		domain = '{uri.netloc}'.format(uri=parsed_uri)
 		print domain
 
-		self.hibp_lookup.lookup_domain(domain)
-
 		# Bodge warning!
 		# TODO: If uri starts with "http://mobile.board.net" it's the Signal NFC
-	    # namebadge. Use card id lookup instead
+		# namebadge. Use card id lookup instead
+		if domain == "mobile.board.net":
+			return self.do_card_id_lookup(uid)
+
+		count = self.hibp_lookup.lookup_domain(domain)
+
+		# Insert artificial delay to make it look pretty...
+		time.sleep(5)
+
+		# Show the pwn count.
+		self.led_driver.show_result_web_count(count)
 
 
 	def do_card_id_lookup(self, card_id):
 		print("Card id lookup")
-
+		# Total hack...
+		# Use card UID to lookup against a known database
+		# for the email address.
+		# Or for non-programmable cards, use the id for domain lookup.
+		if card_id == "0430ACD2865880":
+			print("Steves Signal card")
+			count = self.hibp_lookup.lookup_email("Stephen.Harrison@AnalysisUK.com")
+			time.sleep(5)
+			self.led_driver.show_result_email_count(count)
+		elif card_id == "62EB23EE":
+			print("Tesco.com blank rfid card")
+			count = self.hibp_lookup.lookup_domain("Tesco.com")
+			self.led_driver.show_result_web_count(count)
+		else:
+			print("Unknown card")
 
 # Main program logic follows:
 if __name__ == '__main__':
