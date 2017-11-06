@@ -20,6 +20,9 @@ class NfcReader():
 
 		print("Connected to board id %s (version %d.%d)" % (self.board.id, self.board.version[0], self.board.version[1]))
 
+	def close(self):
+		self.board.close()
+
 	# returns tuple of card uid and first ndef record found.
 	def poll_for_card(self):
 		print("Polling...")

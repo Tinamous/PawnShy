@@ -22,26 +22,33 @@ class App():
 		self.led_driver.start()
 
 		while True:
-			uid, ndef_record = self.nfc_reader.poll_for_card()
+			try:
+				uid, ndef_record = self.nfc_reader.poll_for_card()
 
-			print ("Card reader poll result:")
-			print uid
-			print ndef_record
+				print ("Card reader poll result:")
+				print uid
+				print ndef_record
 
-			if not ndef_record:
-				self.do_card_id_lookup(uid)
-			else:
-				if isinstance(ndef_record, URIRecord): # - website. (if starts with http or https. Also check email:
-					self.do_ndef_web_lookup(uid, ndef_record)
-				elif isinstance(ndef_record, MIMERecord):
-					self.do_ndef_email_lookup(uid, ndef_record)
-				else:
-					print("Don't know how to handle ndef record. reverting to card id.")
+				if not ndef_record:
 					self.do_card_id_lookup(uid)
+				else:
+					if isinstance(ndef_record, URIRecord): # - website. (if starts with http or https. Also check email:
+						self.do_ndef_web_lookup(uid, ndef_record)
+					elif isinstance(ndef_record, MIMERecord):
+						self.do_ndef_email_lookup(uid, ndef_record)
+					else:
+						print("Don't know how to handle ndef record. reverting to card id.")
+						self.do_card_id_lookup(uid)
 
-			# Sleep for a bit to show the result then return to not busy led animation
-			time.sleep(10)
-			self.led_driver.animate_whilst_not_busy()
+				# Sleep for a bit to show the result then return to not busy led animation
+				time.sleep(10)
+				self.led_driver.animate_whilst_not_busy()
+			except KeyboardInterrupt:
+				self.nfc_reader.close()
+				exit()
+			except Exception as e:
+				print("Error: " + e)
+				# Ignore and continue....
 
 	# Expect ndef to be MIMERecord
 	# and the MIMERecord to be a vcard
