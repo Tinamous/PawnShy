@@ -85,7 +85,17 @@ class LedDriver():
 				self._show_web_result()
 
 	def _show_idle(self):
-		self.theaterChaseRainbow(self.strip, 20)
+		#self.theaterChaseRainbow(self.strip, 20, 1)
+
+		#self.rainbowCycle(self.strip, 20, 1)
+		for i in range(self.strip.numPixels()):
+			self.strip.setPixelColor(i, self.wheel((int(i * 256 / self.strip.numPixels()) + self.counter) & 255))
+
+		self.strip.show()
+		time.sleep(10 / 1000.0)
+
+		if self.counter > 255:
+			self.counter = 0
 
 	def _show_hibp_lookup(self):
 		self.rainbowCycle(self.strip, 2, 1)
@@ -119,20 +129,18 @@ class LedDriver():
 		for i in range(self.strip.numPixels()):
 			self.strip.setPixelColor(i, self.good_color)
 
-		# animate_result(start=1)
 		self.animate_results(self.strip, 0)
 		self.strip.setPixelColor(0, self.bad_color if self.pwn_count>=5 else self.good_color)
 
-		# animate_result(start=2)
 		self.animate_results(self.strip, 1)
 		self.strip.setPixelColor(1, self.bad_color if self.pwn_count>=4 else self.good_color)
-		# animate_result(start=3)
+
 		self.animate_results(self.strip, 2)
 		self.strip.setPixelColor(2, self.bad_color if self.pwn_count>=3 else self.good_color)
-		# animate_result(start=4)
+
 		self.animate_results(self.strip, 3)
 		self.strip.setPixelColor(3, self.bad_color if self.pwn_count>=2 else self.good_color)
-		# animate_result(start=5)
+
 		self.animate_results(self.strip, 4)
 		self.strip.setPixelColor(4, self.bad_color if self.pwn_count>=1 else self.good_color)
 
@@ -157,7 +165,7 @@ class LedDriver():
 		self.strip.show()
 		self.result_shown = True
 
-	def animate_results(self, strip, start, wait_ms=50, iterations=10):
+	def animate_results(self, strip, start, wait_ms=100, iterations=10):
 		"""Movie theater light style chaser animation."""
 		for j in range(iterations):
 			# Green
@@ -178,9 +186,15 @@ class LedDriver():
 			strip.show()
 			time.sleep(wait_ms / 1000.0)
 
+			# Red
+			for i in range(start, strip.numPixels()):
+				strip.setPixelColor(i, Color(255, 0, 0))
+			strip.show()
+			time.sleep(wait_ms / 1000.0)
+
 			# Off
-			for i in range(0, strip.numPixels()):
-				strip.setPixelColor(i, 0)
+			#for i in range(start, strip.numPixels()):
+				#strip.setPixelColor(i, 0)
 
 			strip.show()
 
