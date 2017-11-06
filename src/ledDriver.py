@@ -85,24 +85,16 @@ class LedDriver():
 		self.rainbowCycle(self.strip)
 
 	def _show_hibp_lookup(self):
-		#print ('Color wipe animation red.')
-		#self.colorWipe(self.strip, Color(255, 0, 0))  # Red wipe
+		self.theaterChaseRainbow(self.strip, 5)
 
-		#print ('Color wipe animation blue.')
-		#colorWipe(self.strip, Color(0, 255, 0))  # Blue wipe
-
-		#print ('Color wipe animation green')
-		#colorWipe(self.strip, Color(0, 0, 255))  # Green wipe
-
-		print ('Theater chase animations.')
-		if self.counter == 1:
-			self.theaterChase(self.strip, Color(127, 127, 127))  # White theater chase
-		elif self.counter == 2:
-			self.theaterChase(self.strip, Color(127, 0, 0))  # Red theater chase
-		else:
-			self.theaterChase(self.strip, Color(0, 0, 127))  # Blue theater chase
-			self.counter = 0
-
+		#print ('Theater chase animations.')
+		#if self.counter == 1:
+	    #		self.theaterChase(self.strip, Color(127, 127, 127))  # White theater chase
+		#elif self.counter == 2:
+		#	self.theaterChase(self.strip, Color(127, 0, 0))  # Red theater chase
+		#else:
+		#	self.theaterChase(self.strip, Color(0, 0, 127))  # Blue theater chase
+		#	self.counter = 0
 
 		#print ('Rainbow animations.')
 		#rainbow(strip)
@@ -227,7 +219,13 @@ if __name__ == '__main__':
 	driver = LedDriver()
 	driver.animate_whilst_not_busy()
 	driver.start()
-	time.sleep(60.0)
+
+	time.sleep(10.0)
+	driver.animate_whilst_hibp_lookup()
+	time.sleep(10.0)
+	driver.show_result_email_count(3)
+	time.sleep(10.0)
+
 	driver.stop()
 
 
