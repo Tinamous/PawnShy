@@ -22,86 +22,151 @@ class LedDriver():
 		# Create NeoPixel object with appropriate configuration.
 		self.strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
 
-		# Intialize the library (must be called once before other functions).
-		self.strip.begin()
-
-	# Animate the LEDs whilst we wait for a user input
-	def animate_whilst_not_busy(self):
-		theaterChase(self.strip, Color(127, 0, 0))  # Red theater chase
-		theaterChase(self.strip, Color(0, 0, 127))  # Blue theater chase
-		theaterChase(self.strip, Color(0, 127, 0))  # Blue theater chase
-
-	# Animate the LEDs whilst the HIBP result is being retreived
-	def animate(self):
-		print ('Color wipe animation red.')
-		self.colorWipe(self.strip, Color(255, 0, 0))  # Red wipe
 		self.bad_color = Color(128, 0, 0)
 		self.good_color = Color(0, 0, 0)
 
+		# Intialize the library (must be called once before other functions).
+		self.strip.begin()
+
+		# Idle
+		self.display_mode = 0
+		self.pwn_count = 0
+		self.running = False
+		self.counter = 0
+
+	# Animate the LEDs whilst we wait for a user input
+	def animate_whilst_not_busy(self):
+		self.counter = 0
+		self.display_mode = 0
+
+	# Animate the LEDs whilst the HIBP result is being retreived
+	def animate_whilst_hibp_lookup(self):
+		self.counter = 0
+		self.display_mode = 1
+
+	def show_result_email_count(self, count):
+		self.counter = 0
+		self.display_mode = 2
+		self.pwn_count = count
+
+	def show_result_web_count(self, count):
+		self.counter = 0
+		self.display_mode = 3
+		self.pwn_count = count
+
+	def start(self):
+		self.display_mode = 0
+		self.running = True
+		# TODO: start a thread to run the LED animations in the background.
+
+	def stop(self):
+		self.running = False
+
+	def run_animations(self):
+
+		while self.running:
+			self.counter = self.counter + 1;
+
+			if self.display_mode == 0:
+				self._show_idle()
+			elif self.display_mode == 1:
+				self._show_hibp_lookup()
+			elif self.display_mode == 2:
+				self._show_email_result()
+			elif self.display_mode == 3:
+				self._show_web_result()
+
+			time.sleep(1.0)
+
+	def _show_idle(self):
+		if self.counter == 1:
+			self.theaterChase(self.strip, Color(127, 0, 0))  # Red theater chase
+		elif self.counter == 2:
+			self.theaterChase(self.strip, Color(0, 0, 127))  # Blue theater chase
+		else:
+			self.theaterChase(self.strip, Color(0, 127, 0))  # Green theater chase
+			self.counter = 0
+
+	def _show_hibp_lookup(self):
+		#print ('Color wipe animation red.')
+		#self.colorWipe(self.strip, Color(255, 0, 0))  # Red wipe
+
 		#print ('Color wipe animation blue.')
-		#colorWipe(strip, Color(0, 255, 0))  # Blue wipe
+		#colorWipe(self.strip, Color(0, 255, 0))  # Blue wipe
 
 		#print ('Color wipe animation green')
-		#colorWipe(strip, Color(0, 0, 255))  # Green wipe
+		#colorWipe(self.strip, Color(0, 0, 255))  # Green wipe
 
-		#print ('Theater chase animations.')
-		#theaterChase(strip, Color(127, 127, 127))  # White theater chase
-		#theaterChase(strip, Color(127, 0, 0))  # Red theater chase
-		#theaterChase(strip, Color(0, 0, 127))  # Blue theater chase
+		print ('Theater chase animations.')
+		if self.counter == 1:
+			self.theaterChase(self.strip, Color(127, 127, 127))  # White theater chase
+		elif self.counter == 2:
+			self.theaterChase(self.strip, Color(127, 0, 0))  # Red theater chase
+		else:
+			self.theaterChase(self.strip, Color(0, 0, 127))  # Blue theater chase
+			self.counter = 0
+
+
 		#print ('Rainbow animations.')
 		#rainbow(strip)
 		#rainbowCycle(strip)
 		#theaterChaseRainbow(strip)
 
 
-	def show_result_count(self, count):
+	def _show_email_result(self):
 		# TODO: Animate a little as we go.
-		# Yay, no pwn, show nothing
 		for i in range(self.strip.numPixels()):
-			if i < count:
+			if i < self.pwn_count:
 				self.strip.setPixelColor(i, self.good_color)
 			else:
 				# Purple
 				self.strip.setPixelColor(i, self.bad_color)
-			self.strip.show()
 
-	def show_result_pwn_count(self, count):
+		self.strip.show()
 
+	def _show_web_result(self):
 		# TODO: Animate a little as we go along.
 
-		if count < 1:
+		if self.pwn_count < 1:
 			# Yay, no pwn, show nothing
-			for i in range(self.strip.numPixels()):
-				self.strip.setPixelColor(i, self.good_color)
-				self.strip.show()
-		elif count < 1000:
+			self.strip.setPixelColor(1, self.good_color)
+			self.strip.setPixelColor(2, self.good_color)
+			self.strip.setPixelColor(3, self.good_color)
+			self.strip.setPixelColor(4, self.good_color)
+			self.strip.setPixelColor(5, self.good_color)
+		elif self.pwn_count < 1000:
 			self.strip.setPixelColor(1, self.good_color)
 			self.strip.setPixelColor(2, self.good_color)
 			self.strip.setPixelColor(3, self.good_color)
 			self.strip.setPixelColor(4, self.good_color)
 			self.strip.setPixelColor(5, self.bad_color)
-		elif count < 10000:
+		elif self.pwn_count < 10000:
 			self.strip.setPixelColor(1, self.good_color)
 			self.strip.setPixelColor(2, self.good_color)
 			self.strip.setPixelColor(3, self.good_color)
 			self.strip.setPixelColor(4, self.bad_color)
 			self.strip.setPixelColor(5, self.bad_color)
-		elif count < 100000:
+		elif self.pwn_count < 100000:
 			self.strip.setPixelColor(1, self.good_color)
 			self.strip.setPixelColor(2, self.good_color)
 			self.strip.setPixelColor(3, self.bad_color)
 			self.strip.setPixelColor(4, self.bad_color)
 			self.strip.setPixelColor(5, self.bad_color)
-		elif count < 1000000:
+		elif self.pwn_count < 1000000:
 			self.strip.setPixelColor(1, self.good_color)
 			self.strip.setPixelColor(2, self.bad_color)
 			self.strip.setPixelColor(3, self.bad_color)
 			self.strip.setPixelColor(4, self.bad_color)
 			self.strip.setPixelColor(5, self.bad_color)
 		else:
-			for i in range(self.strip.numPixels()):
-				self.strip.setPixelColor(i, Color(255,0,0))
-				self.strip.show()
+			self.strip.setPixelColor(1, self.bad_color)
+			self.strip.setPixelColor(2, self.bad_color)
+			self.strip.setPixelColor(3, self.bad_color)
+			self.strip.setPixelColor(4, self.bad_color)
+			self.strip.setPixelColor(5, self.bad_color)
+
+		self.strip.show()
+
 
 	# Define functions which animate LEDs in various ways.
 	def colorWipe(self, strip, color, wait_ms=50):
@@ -162,8 +227,9 @@ class LedDriver():
 
 # Main program logic follows:
 if __name__ == '__main__':
-	driver = LedDriver();
-	driver.animate();
+	driver = LedDriver()
+	driver.animate_whilst_not_busy()
+	driver.start()
 
 
 
