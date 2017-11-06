@@ -52,13 +52,12 @@ The aim of this game is to use your email address and make all the pawns go gree
 
 Present a NFC card that either includes your email address, a hash or the id is linked to a database or email addresses (e.g. a door key)
 
-Each red (or purple minion) pawn indicates a compromised account.
+Each red (or purple minion) pawn indicates the count of compromised sites the email is associated with.
 
 
 ### Game 2: Have They Been Pwned
 
-
-The aim of this game is to find the website that has not been pawned, or in multi-player mode, to find the website with the lowest pwnage.
+The aim of this game is to find the website that has not been pwned, or in multi-player mode, to find the website with the lowest pwnage.
 
 Using pre-programmed NFC cards, select a card for the website you trust the most. Present the the Game Of Pwned sensor.
 
@@ -68,7 +67,7 @@ Each red/purple pwnd indicates a pwnage.
 2: <10k
 3: <100k
 4: <1M
-5: GAME OVER
+5: OUCH!
 
 For multi-player you each select a card and the winner is the person with the lowest pwnage.
 
@@ -100,6 +99,10 @@ Neopixels need to be driven with a serial data signal 70% of the power supply, a
 * Connect a IN4001 diode in the 5V line with the current flow going towards the LEDs (diode band nearest the LEDs). Connect the other end of the diode to the 5V Pin.
 * Connect a 300-600 Ohm resistor to the Din wire (to limit the current and protect the LEDs). Connect the other end of this to Pin 12 on the Pi).
 * Connect Gnd straight to the Pi.
+
+Note that Neopixels are not really a good choise for use on the Raspberry Pi. See here for driver software
+
+https://learn.adafruit.com/neopixels-on-raspberry-pi/software
 
 ## Pi
 
