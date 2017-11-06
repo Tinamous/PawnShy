@@ -23,7 +23,7 @@ class LedDriver():
 		self.strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
 
 		# Intialize the library (must be called once before other functions).
-		strip.begin()
+		self.strip.begin()
 
 	# Animate the LEDs whilst we wait for a user input
 	def animate_whilst_not_busy(self):
