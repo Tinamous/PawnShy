@@ -49,13 +49,16 @@ class NfcReader():
 	def handle_p2p(self, board):
 		print("P2P mode")
 
-		if board.ndefPresent:
-			print("Received p2p ndef record:")
+		while board.connected:
+			if board.ndefPresent:
+				print("Received p2p ndef record...")
 
-			# HACK: return only the first.
-			for record in board.ndefRecords:
-				return "", record
-		sleep(0.1)
+				# HACK: return only the first.
+				for record in board.ndefRecords:
+					return "", record
+
+		print("No ndef present.")
+		return "", None
 
 	# returns tuple of card uid and first ndef record found.
 	def handle_tag(self, board):
@@ -66,7 +69,7 @@ class NfcReader():
 		ndefMessageRead = False
 		ndefReadingStarted = False
 
-		while True:
+		while board.connected:
 
 			if board.ndefReadable:
 				print("Reading tags ndef record")
