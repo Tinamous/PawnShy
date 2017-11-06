@@ -55,7 +55,15 @@ class HibpLookup():
 			count = len(results)
 			print("Count: " + str(count))
 			print(results)
-			return count, results
+
+			# return the total PwnCount for all breaches listed.
+			pwnCount = 0
+			if count > 0:
+				for result in results:
+					print("PwnCount: " + str(result.PwnCount))
+					pwnCount = pwnCount + result.PwnCount
+
+			return pwnCount, results
 
 		print("***** Failed to load HIBP results. *****")
 
