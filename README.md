@@ -13,13 +13,13 @@ Based on the fair ground game Coconut shy. The aim is to knock out as many pawns
 [Part 2](https://youtu.be/kG7oJAG3vGs)
 
 
-The game is intended to be easy to play, for example, at a conference, and to give the player a fun visual indication, and to drive thieir interest in Have I Been Pwned.
+The game is intended to be easy to play, for example, at a conference, and to give the player a fun visual indication, and to drive their interest in Have I Been Pwned.
 
 When attending Signal London recently I noticed the attendee name badges were actually NFC cards, this could be used either to lookup the attendees email (or hash) or have the email/hash directly in the NFC card.
 
-Whilst the Signal NFC cards didn't actually include my email address it would have been easy for Twillio to add a VCard for me, or a hash of my email to facilitate this game.
+Whilst the Signal NFC cards didn't actually include my email address it would have been easy for Twilio to add a VCard for me, or a hash of my email to facilitate this game.
 
-Likewise, many door entry systems use NFC or RFID cards. These cards could be linked to an email address through an external database and provice a simple and fun way for employees to check if their email has been pwned.
+Likewise, many door entry systems use NFC or RFID cards. These cards could be linked to an email address through an external database and provide a simple and fun way for employees to check if their email has been pwned.
 
 ## How It's Made
 
@@ -30,7 +30,7 @@ Likewise, many door entry systems use NFC or RFID cards. These cards could be li
 * 3D Printed case
 * 3D (SLA) printed pawns
 
-The Raspbery Pi polls the NFC sensor waiting for a card or p2p connection and reads the following to get an email/website:
+The Raspberry Pi polls the NFC sensor waiting for a card or p2p connection and reads the following to get an email/website:
 
 * Card serial number - linked though an external database to email address
 * Uri NDEF record for a website
@@ -83,17 +83,17 @@ For multi-player you each select a card and the winner is the person with the lo
 
 ### Game 3: Send in the pwnage (Android Only)
 
-Like game 2, the aim of this game is to find your favourite website without pwnage.
+Like game 2, the aim of this game is to find your favorite website without pwnage.
 
 Ensure NFC Android Beam is enabled on your phone.
 
-Browse to a website you trust (or dont!) and have an accout with.
+Browse to a website you trust (or don't!) and have an account with.
 
 Place your phone on the Game Of Pwned.
 
 When promoted by your phone click to send the website.
 
-As with game 2. The pwnd accounts are displaed.
+As with game 2. The pwnd accounts are displayed.
 
 
 ## Construction
@@ -108,7 +108,7 @@ Neopixels need to be driven with a serial data signal 70% of the power supply, a
 * Connect a 300-600 Ohm resistor to the Din wire (to limit the current and protect the LEDs). Connect the other end of this to Pin 12 on the Pi).
 * Connect Gnd straight to the Pi.
 
-Note that Neopixels are not really a good choise for use on the Raspberry Pi. 
+Note that Neopixels are not really a good choice for use on the Raspberry Pi. 
 
 Install the raspberry Pi Neopixel software following the instructions here:
 
