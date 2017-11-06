@@ -104,12 +104,32 @@ class LedDriver():
 
 	def _show_email_result(self):
 		# TODO: Animate a little as we go.
+		# Count 5+ all leds.
+		# Count 4, LED1 Off
+		# Count 3, LED1,2 Off
+		# Count 2, LED1,2,3 Off
+		# Count 1, LED1,2,3,4 Off
+		# Count 0, LED1,2,3,4,5 Off
+
 		for i in range(self.strip.numPixels()):
-			if i < self.pwn_count:
-				self.strip.setPixelColor(i, self.good_color)
-			else:
-				# Purple
-				self.strip.setPixelColor(i, self.bad_color)
+			self.strip.setPixelColor(i, self.good_color)
+
+		# animate_result(start=1)
+		#self.animate_results(self.strip, 1)
+		self.strip.setPixelColor(0, self.bad_color if self.pwn_count>=5 else self.good_color)
+
+		# animate_result(start=2)
+		#self.animate_results(self.strip, 2)
+		self.strip.setPixelColor(1, self.bad_color if self.pwn_count>=4 else self.good_color)
+		# animate_result(start=3)
+		#self.animate_results(self.strip, 3)
+		self.strip.setPixelColor(2, self.bad_color if self.pwn_count>=3 else self.good_color)
+		# animate_result(start=4)
+		#self.animate_results(self.strip, 4)
+		self.strip.setPixelColor(3, self.bad_color if self.pwn_count>=2 else self.good_color)
+		# animate_result(start=5)
+		#self.animate_results(self.strip, 5)
+		self.strip.setPixelColor(4, self.bad_color if self.pwn_count>=1 else self.good_color)
 
 		self.strip.show()
 
@@ -156,6 +176,16 @@ class LedDriver():
 
 		self.strip.show()
 
+	def animate_results(self, strip, start, wait_ms=20, iterations=10):
+		"""Movie theater light style chaser animation."""
+		for j in range(iterations):
+			for q in range(3):
+				for i in range(start, strip.numPixels(), 3):
+					strip.setPixelColor(i + q, Color(0, 255, 0))
+				strip.show()
+				time.sleep(wait_ms / 1000.0)
+				for i in range(0, strip.numPixels(), 3):
+					strip.setPixelColor(i + q, 0)
 
 	# Define functions which animate LEDs in various ways.
 	def colorWipe(self, strip, color, wait_ms=50):
@@ -217,15 +247,25 @@ class LedDriver():
 # Main program logic follows:
 if __name__ == '__main__':
 	driver = LedDriver()
+
+	print("Not busy animation")
 	driver.animate_whilst_not_busy()
 	driver.start()
 
 	time.sleep(10.0)
+
+	print("HIBP Lookup animation")
 	driver.animate_whilst_hibp_lookup()
 	time.sleep(10.0)
+
+	print("Email count result")
 	driver.show_result_email_count(3)
 	time.sleep(10.0)
 
+	driver.show_result_web_count(124356)
+	time.sleep(10.0)
+
+	print("That's it, I'm out of here....")
 	driver.stop()
 
 
