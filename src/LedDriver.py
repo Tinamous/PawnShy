@@ -82,16 +82,7 @@ class LedDriver():
 				self._show_web_result()
 
 	def _show_idle(self):
-		if self.counter == 1:
-			self.rainbowCycle(self.strip)
-			#self.theaterChase(self.strip, Color(127, 0, 0))  # Red theater chase
-		elif self.counter == 2:
-			self.rainbow(self.strip)
-			#self.theaterChase(self.strip, Color(0, 0, 127))  # Blue theater chase
-		else:
-			#self.theaterChaseRainbow(self.strip)
-			#self.theaterChase(self.strip, Color(0, 127, 0))  # Green theater chase
-			self.counter = 0
+		self.rainbowCycle(self.strip)
 
 	def _show_hibp_lookup(self):
 		#print ('Color wipe animation red.')
@@ -236,7 +227,7 @@ if __name__ == '__main__':
 	driver = LedDriver()
 	driver.animate_whilst_not_busy()
 	driver.start()
-	time.sleep(20.0)
+	time.sleep(60.0)
 	driver.stop()
 
 
