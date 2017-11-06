@@ -115,11 +115,11 @@ class LedDriver():
 			self.strip.setPixelColor(i, self.good_color)
 
 		# animate_result(start=1)
-		#self.animate_results(self.strip, 1)
+		self.animate_results(self.strip, 1)
 		self.strip.setPixelColor(0, self.bad_color if self.pwn_count>=5 else self.good_color)
 
 		# animate_result(start=2)
-		#self.animate_results(self.strip, 2)
+		self.animate_results(self.strip, 2)
 		self.strip.setPixelColor(1, self.bad_color if self.pwn_count>=4 else self.good_color)
 		# animate_result(start=3)
 		#self.animate_results(self.strip, 3)
@@ -134,45 +134,13 @@ class LedDriver():
 		self.strip.show()
 
 	def _show_web_result(self):
-		# TODO: Animate a little as we go along.
 
-		if self.pwn_count < 1:
-			# Yay, no pwn, show nothing
-			self.strip.setPixelColor(1, self.good_color)
-			self.strip.setPixelColor(2, self.good_color)
-			self.strip.setPixelColor(3, self.good_color)
-			self.strip.setPixelColor(4, self.good_color)
-			self.strip.setPixelColor(5, self.good_color)
-		elif self.pwn_count < 1000:
-			self.strip.setPixelColor(1, self.good_color)
-			self.strip.setPixelColor(2, self.good_color)
-			self.strip.setPixelColor(3, self.good_color)
-			self.strip.setPixelColor(4, self.good_color)
-			self.strip.setPixelColor(5, self.bad_color)
-		elif self.pwn_count < 10000:
-			self.strip.setPixelColor(1, self.good_color)
-			self.strip.setPixelColor(2, self.good_color)
-			self.strip.setPixelColor(3, self.good_color)
-			self.strip.setPixelColor(4, self.bad_color)
-			self.strip.setPixelColor(5, self.bad_color)
-		elif self.pwn_count < 100000:
-			self.strip.setPixelColor(1, self.good_color)
-			self.strip.setPixelColor(2, self.good_color)
-			self.strip.setPixelColor(3, self.bad_color)
-			self.strip.setPixelColor(4, self.bad_color)
-			self.strip.setPixelColor(5, self.bad_color)
-		elif self.pwn_count < 1000000:
-			self.strip.setPixelColor(1, self.good_color)
-			self.strip.setPixelColor(2, self.bad_color)
-			self.strip.setPixelColor(3, self.bad_color)
-			self.strip.setPixelColor(4, self.bad_color)
-			self.strip.setPixelColor(5, self.bad_color)
-		else:
-			self.strip.setPixelColor(1, self.bad_color)
-			self.strip.setPixelColor(2, self.bad_color)
-			self.strip.setPixelColor(3, self.bad_color)
-			self.strip.setPixelColor(4, self.bad_color)
-			self.strip.setPixelColor(5, self.bad_color)
+		# TODO: Animate a little as we go along.
+		self.strip.setPixelColor(0, self.good_color if self.pwn_count < 1000000 else self.bad_color)
+		self.strip.setPixelColor(1, self.good_color if self.pwn_count < 100000 else self.bad_color)
+		self.strip.setPixelColor(2, self.good_color if self.pwn_count < 10000 else self.bad_color)
+		self.strip.setPixelColor(3, self.good_color if self.pwn_count < 1000 else self.bad_color)
+		self.strip.setPixelColor(4, self.good_color if self.pwn_count < 1 else self.bad_color)
 
 		self.strip.show()
 
@@ -262,7 +230,8 @@ if __name__ == '__main__':
 	driver.show_result_email_count(3)
 	time.sleep(10.0)
 
-	driver.show_result_web_count(124356)
+	print("Web result")
+	driver.show_result_web_count(1243567)
 	time.sleep(10.0)
 
 	print("That's it, I'm out of here....")
