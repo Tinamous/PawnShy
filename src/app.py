@@ -41,7 +41,7 @@ class App():
 						self.do_card_id_lookup(uid)
 
 				# Sleep for a bit to show the result then return to not busy led animation
-				time.sleep(10)
+				time.sleep(15)
 				self.led_driver.animate_whilst_not_busy()
 			except KeyboardInterrupt:
 				self.nfc_reader.close()
