@@ -58,6 +58,7 @@ class LedDriver():
 		self.display_mode = 0
 		self.running = True
 		# TODO: start a thread to run the LED animations in the background.
+		self.run_animations()
 
 	def stop(self):
 		self.running = False
