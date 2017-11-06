@@ -1,8 +1,17 @@
 # Pawn Shy
 
+![Pawn Sy](/pictures/PawnShy1.png)
+
 This is my entry to the Have I Been Pwned API competition.
 
 Based on the fair ground game Coconut shy. The aim is to known out as many pawns as possible using either your email address or website that hasn't been pwned (good luck with that!).
+
+## Videos:
+
+[Part 1](https://youtu.be/ber4mi4SVx4)
+
+[Part 2] (https://youtu.be/kG7oJAG3vGs)
+
 
 The game is intended to be easy to play, for example, at a conference, and to give the player a fun visual indication, and to drive thieir interest in Have I Been Pwned.
 
@@ -100,7 +109,9 @@ Neopixels need to be driven with a serial data signal 70% of the power supply, a
 * Connect a 300-600 Ohm resistor to the Din wire (to limit the current and protect the LEDs). Connect the other end of this to Pin 12 on the Pi).
 * Connect Gnd straight to the Pi.
 
-Note that Neopixels are not really a good choise for use on the Raspberry Pi. See here for driver software
+Note that Neopixels are not really a good choise for use on the Raspberry Pi. 
+
+Install the raspberry Pi Neopixel software following the instructions here:
 
 https://learn.adafruit.com/neopixels-on-raspberry-pi/software
 
