@@ -39,22 +39,25 @@ needed to be run as sudo.
 $ sudo python blink.py
 
 ------------------
-Access to USB:
-Id: 1fc9:8039
+To access the USB device without needing sudo we add a udev rule for the device:
 
-// Create the rules file
+Nfc board USB Id: 1fc9:8039
+
+Create the rules file:
+
 sudo nano /etc/udev/rules.d/99-local.rules
 
-// Add
+Add:
+
 SUBSYSTEM=="usb", ATTRS{idVendor}=="1fc9", MODE="0666"
 
-// reload (remove USB device as well)
-udevadm control --reload-rules
+Reload (remove USB device as well):
+
+$ udevadm control --reload-rules
 
 ------------------
 
+You can then use:
+
 $ python blink.py
 
-
---------------------------------
-Bluetooth (Printer)
