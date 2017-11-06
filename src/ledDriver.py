@@ -110,6 +110,7 @@ class LedDriver():
 
 	def _show_email_result(self):
 		if self.result_shown:
+			time.sleep(0.01)
 			return;
 
 		# Count 5+ all leds.
@@ -121,6 +122,7 @@ class LedDriver():
 
 		for i in range(self.strip.numPixels()):
 			self.strip.setPixelColor(i, self.good_color)
+		self.strip.show()
 
 		self.animate_results(self.strip, 0)
 		self.strip.setPixelColor(0, self.bad_color if self.pwn_count>=5 else self.good_color)
@@ -145,8 +147,8 @@ class LedDriver():
 		self.result_shown = True
 
 	def _show_web_result(self):
-
 		if self.result_shown:
+			time.sleep(0.01)
 			return;
 
 		for i in range(self.strip.numPixels()):
@@ -162,20 +164,20 @@ class LedDriver():
 		self.strip.show()
 		self.result_shown = True
 
-	def animate_results(self, strip, start, wait_ms=100, iterations=10):
+	def animate_results(self, strip, start, wait_ms=1, iterations=10):
 		"""Movie theater light style chaser animation."""
-		for j in range(iterations):
-			for j in range(256):
-				for i in range(start, strip.numPixels()):
-					strip.setPixelColor(i, self.wheel((int(i * 256 / strip.numPixels()) + j) & 255))
-				strip.show()
-				time.sleep(wait_ms / 1000.0)
 
-			# Off
-			#for i in range(start, strip.numPixels()):
-				#strip.setPixelColor(i, 0)
-
+		for j in range(256 * iterations):
+			for i in range(start, strip.numPixels()):
+				strip.setPixelColor(i, self.wheel((int(i * 256 / strip.numPixels()) + j) & 255))
 			strip.show()
+			time.sleep(wait_ms / 1000.0)
+
+		# Off
+		#for i in range(start, strip.numPixels()):
+			#strip.setPixelColor(i, 0)
+
+		#strip.show()
 
 	# Define functions which animate LEDs in various ways.
 	def colorWipe(self, strip, color, wait_ms=50):
