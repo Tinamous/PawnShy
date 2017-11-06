@@ -1,0 +1,1 @@
+This folder contains test scripts to check out the hardware and try things outside the main application
