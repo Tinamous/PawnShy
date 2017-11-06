@@ -58,9 +58,6 @@ class App():
 		self.led_driver.animate_whilst_hibp_lookup()
 		count = self.hibp_lookup.lookup_email(email)
 
-		# Insert artificial delay to make it look pretty...
-		time.sleep(5)
-
 		# Show the pwn count.
 		self.led_driver.show_result_email_count(count)
 
@@ -88,8 +85,6 @@ class App():
 		self.led_driver.animate_whilst_hibp_lookup()
 		count = self.hibp_lookup.lookup_domain(domain)
 
-		# Insert artificial delay to make it look pretty...
-		time.sleep(5)
 
 		# Show the pwn count.
 		self.led_driver.show_result_web_count(count)
