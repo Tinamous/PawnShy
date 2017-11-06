@@ -48,23 +48,28 @@ class LedDriver():
 		self.counter = 0
 		self.display_mode = 1
 
+	# show the result from an email lookup. count should be the
+	# number of times the email address was pwned
 	def show_result_email_count(self, count):
 		self.counter = 0
 		self.display_mode = 2
 		self.pwn_count = count
 		self.result_shown = False
 
+	# show the results from a domain lookup. count should be the number
+	# of accounts compromised
 	def show_result_web_count(self, count):
 		self.counter = 0
 		self.display_mode = 3
 		self.pwn_count = count
 		self.result_shown = False
 
+	# Start a background thread to show the status
 	def start(self):
 		self.display_mode = 0
 		self.running = True
-		# TODO: start a thread to run the LED animations in the background.
-		#self.run_animations()
+
+		# start a thread to run the LED animations in the background.
 		thread = threading.Thread(target=self.run_animations, args=())
 		thread.daemon = True  # Daemonize thread
 		thread.start()
@@ -72,6 +77,7 @@ class LedDriver():
 	def stop(self):
 		self.running = False
 
+	# Thred target to show status.
 	def run_animations(self):
 
 		while self.running:
