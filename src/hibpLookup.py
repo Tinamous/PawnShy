@@ -12,7 +12,12 @@ class HibpLookup():
 	def lookup_email(self, email_address):
 		print ("email lookup: " + email_address)
 
-		response = requests.get("https://haveibeenpwned.com/api/v2/breachedaccount/" + email_address + "?includeUnverified=true")
+		url = "https://haveibeenpwned.com/api/v2/breachedaccount/" + email_address + "?includeUnverified=true"
+		headers = {
+			'User-Agent': 'Pawn Shy (https://github.com/Tinamous/PawnShy)',
+		}
+
+		response = requests.get(url, headers=headers)
 
 		# Insert artificial delay to make it look busy
 		# even if the api returned quickly.
@@ -40,7 +45,12 @@ class HibpLookup():
 	def lookup_domain(self, domain):
 		print ("domain lookup: " + domain)
 
-		response = requests.get("https://haveibeenpwned.com/api/v2/breaches?domain=" + domain + "&includeUnverified=true")
+		url = "https://haveibeenpwned.com/api/v2/breaches?domain=" + domain + "&includeUnverified=true"
+		headers = {
+			'User-Agent': 'Pawn Shy (https://github.com/Tinamous/PawnShy)',
+		}
+
+		response = requests.get(url, headers=headers)
 
 		# Insert artificial delay to make it look busy
 		# even if the api returned quickly.
