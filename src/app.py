@@ -56,7 +56,10 @@ class App():
 	def do_email_lookup(self, email):
 
 		self.led_driver.animate_whilst_hibp_lookup()
-		count = self.hibp_lookup.lookup_email(email)
+		count, results = self.hibp_lookup.lookup_email(email)
+
+		# Ignore the results for now but we might want to print them
+		# for the person to take away.
 
 		# Show the pwn count.
 		self.led_driver.show_result_email_count(count)
@@ -83,8 +86,10 @@ class App():
 	def do_web_lookup(self, domain):
 
 		self.led_driver.animate_whilst_hibp_lookup()
-		count = self.hibp_lookup.lookup_domain(domain)
+		count, results = self.hibp_lookup.lookup_domain(domain)
 
+		# Ignore the results for now but we might want to print them
+		# for the person to take away.
 
 		# Show the pwn count.
 		self.led_driver.show_result_web_count(count)
